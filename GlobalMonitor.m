@@ -8,34 +8,28 @@
 
 #import "GlobalMonitor.h"
 
-
 @implementation GlobalMonitor
 
-+(id) monitorEvery: (NSEventMask) eventMask withNotificatonNamed: (NSString *) eventNotification {
-	id myHotKey = [NSEvent addGlobalMonitorForEventsMatchingMask:eventMask handler:^(NSEvent *event) {
++(id) monitorEvery: (NSEventMask) eventMask performSelector: (SEL) aSelector target: (id) target {
+	id myMonitor = [NSEvent addGlobalMonitorForEventsMatchingMask:eventMask handler:^(NSEvent *event) {
 		NSLog(@"EveryMonitorEvent");
-		[[NSNotificationCenter defaultCenter] postNotificationName:eventNotification object:nil];
+		[target performSelector: aSelector withObject: event];
 		
-	}];
-	
-	return myHotKey;
-	
+	}];	
+	return myMonitor;	
 }
 
-+(void) monitorNext: (NSEventMask) eventMask withNotificatonNamed: (NSString *) eventNotification {
++(void) monitorNext: (NSEventMask) eventMask performSelector: (SEL) aSelector target: (id) target {
 	 myNextMonitor = [NSEvent addGlobalMonitorForEventsMatchingMask:eventMask handler:^(NSEvent *event) {
 		NSLog(@"NextMonitorEvent");
 		[NSEvent removeMonitor: myNextMonitor];				
-		[[NSNotificationCenter defaultCenter] postNotificationName:eventNotification object:nil];
+		[target performSelector: aSelector withObject: event];
 		 
-	}];
-	
+	}];	
 }
 
-+(void) removeMonitor: (id) monitor {
-	
-	[NSEvent removeMonitor: monitor];
-	
++(void) removeMonitor: (id) monitor {	
+	[NSEvent removeMonitor: monitor];	
 }
 
 @end

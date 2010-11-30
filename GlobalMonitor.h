@@ -9,12 +9,11 @@
 #import <Cocoa/Cocoa.h>
 
 static id myNextMonitor;
-
 @interface GlobalMonitor : NSObject 
 
-+(id) monitorEvery: (NSEventMask) eventMask withNotificatonNamed: (NSString *) eventNotification;
++(id) monitorEvery: (NSEventMask) eventMask performSelector: (SEL) aSelector target: (id) target;
 
-+(void) monitorNext: (NSEventMask) eventMask withNotificatonNamed: (NSString *) eventNotification;
++(void) monitorNext: (NSEventMask) eventMask performSelector: (SEL) aSelector target: (id) target;
 	
 +(void) removeMonitor: (id) monitor;
 
