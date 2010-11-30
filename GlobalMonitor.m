@@ -11,10 +11,10 @@
 
 @implementation GlobalMonitor
 
-+(id) monitorEvery: (NSEventMask) eventMask {
++(id) monitorEvery: (NSEventMask) eventMask withNotificatonNamed: (NSString *) eventNotification {
 	id myHotKey = [NSEvent addGlobalMonitorForEventsMatchingMask:eventMask handler:^(NSEvent *event) {
 		NSLog(@"EveryMonitorEvent");
-		[[NSNotificationCenter defaultCenter] postNotificationName:@"eventNotification" object:nil];
+		[[NSNotificationCenter defaultCenter] postNotificationName:eventNotification object:nil];
 		
 	}];
 	
@@ -22,11 +22,11 @@
 	
 }
 
-+(void) monitorNext: (NSEventMask) eventMask {
++(void) monitorNext: (NSEventMask) eventMask withNotificatonNamed: (NSString *) eventNotification {
 	 myNextMonitor = [NSEvent addGlobalMonitorForEventsMatchingMask:eventMask handler:^(NSEvent *event) {
 		NSLog(@"NextMonitorEvent");
 		[NSEvent removeMonitor: myNextMonitor];				
-		[[NSNotificationCenter defaultCenter] postNotificationName:@"eventNotification" object:nil];
+		[[NSNotificationCenter defaultCenter] postNotificationName:eventNotification object:nil];
 		 
 	}];
 	

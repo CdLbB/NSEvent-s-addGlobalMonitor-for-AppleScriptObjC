@@ -12,9 +12,9 @@ static id myNextMonitor;
 
 @interface GlobalMonitor : NSObject 
 
-+(id) monitorEvery: (NSEventMask) eventMask;
++(id) monitorEvery: (NSEventMask) eventMask withNotificatonNamed: (NSString *) eventNotification;
 
-+(void) monitorNext: (NSEventMask) eventMask;
++(void) monitorNext: (NSEventMask) eventMask withNotificatonNamed: (NSString *) eventNotification;
 	
 +(void) removeMonitor: (id) monitor;
 

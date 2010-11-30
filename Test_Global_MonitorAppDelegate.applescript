@@ -14,12 +14,12 @@ script Test_Global_MonitorAppDelegate
 	property parent : class "NSObject"
 	
 	on monitorNext_(sender)
-		GlobalMonitor's monitorNext_(current application's NSLeftMouseDownMask)
+		GlobalMonitor's monitorNext_withNotificatonNamed_(current application's NSLeftMouseDownMask, "eventNotification1")
 		log (current application's NSRightMouseUp) as integer
 	end monitorNext_
 	
 	on monitorOn_(sender)
-		set myMonitor to GlobalMonitor's monitorEvery_(current application's NSLeftMouseDownMask)
+		set myMonitor to GlobalMonitor's monitorEvery_withNotificatonNamed_(current application's NSLeftMouseDownMask, "eventNotification1")
 	end monitorOn_
 	
 	on monitorOff_(sender)
@@ -35,7 +35,7 @@ script Test_Global_MonitorAppDelegate
 		-- Insert code here to initialize your application before any files are opened
 		set myMonitor to missing value
 		set noteCenter to current application's NSNotificationCenter's defaultCenter
-		noteCenter's addObserver_selector_name_object_(me, "eventHappens:", "eventNotification", missing value)
+		noteCenter's addObserver_selector_name_object_(me, "eventHappens:", "eventNotification1", missing value)
 	end applicationWillFinishLaunching_
 	
 	on applicationShouldTerminate_(sender)
