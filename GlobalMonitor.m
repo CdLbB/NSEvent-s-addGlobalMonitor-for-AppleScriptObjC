@@ -19,13 +19,14 @@
 	return myMonitor;	
 }
 
-+(void) monitorNext: (NSEventMask) eventMask performSelector: (SEL) aSelector target: (id) target {
++(id) monitorNext: (NSEventMask) eventMask performSelector: (SEL) aSelector target: (id) target {
 	 myNextMonitor = [NSEvent addGlobalMonitorForEventsMatchingMask:eventMask handler:^(NSEvent *event) {
 		NSLog(@"NextMonitorEvent");
 		[NSEvent removeMonitor: myNextMonitor];				
 		[target performSelector: aSelector withObject: event];
 		 
 	}];	
+	return myNextMonitor;
 }
 
 +(void) removeMonitor: (id) monitor {	
